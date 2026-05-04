@@ -30,11 +30,15 @@ export class ProductsService {
   }
 
   async update(id: number, updateProductDto: any) {
+    // Primero verificamos si existe
+    await this.findOne(id);
     await this.productRepository.update(id, updateProductDto);
     return this.findOne(id);
   }
 
   async remove(id: number) {
+    // Primero verificamos si existe
+    await this.findOne(id);
     await this.productRepository.delete(id);
     return { message: `Producto con ID ${id} eliminado` };
   }
