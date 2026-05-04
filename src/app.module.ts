@@ -26,8 +26,12 @@ TypeOrmModule.forRoot({
       database: process.env.DB_NAME,
       autoLoadEntities: true,
       synchronize: true,
-      ssl: {
-        rejectUnauthorized: false,
+      // CONFIGURACIÓN CRÍTICA DE SSL
+      ssl: true, 
+      extra: {
+        ssl: {
+          rejectUnauthorized: false,
+        },
       },
     }),
     ProductsModule, 
