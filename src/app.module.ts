@@ -17,18 +17,18 @@ import { AuthModule } from './auth/auth.module';
     }),
 
     // 2. Configuración ASÍNCRONA de TypeORM (Garantiza que lea el .env de Render)
-    TypeOrmModule.forRootAsync({
+TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => ({
         type: 'mysql',
         host: configService.get<string>('DB_HOST'),
-        port: configService.get<number>('DB_PORT') || 11979,
+        port: Number(configService.get<string>('DB_PORT')), // Conversión segura
         username: configService.get<string>('DB_USERNAME'),
         password: configService.get<string>('DB_PASSWORD'),
         database: configService.get<string>('DB_NAME'),
         autoLoadEntities: true,
-        synchronize: true, 
+        synchronize: true,
         ssl: {
           rejectUnauthorized: false,
         },
