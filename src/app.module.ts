@@ -18,22 +18,19 @@ import { AuthModule } from './auth/auth.module';
 
     // 2. Configuración de la conexión a la base de datos de Aiven
 TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: process.env.DB_HOST,
-      port: parseInt(process.env.DB_PORT || '5432', 10),
-      username: process.env.DB_USERNAME,
-      password: process.env.DB_PASSWORD,
-      database: process.env.DB_NAME,
-      autoLoadEntities: true,
-      synchronize: true,
-      // CONFIGURACIÓN CRÍTICA DE SSL
-      ssl: true, 
-      extra: {
-        ssl: {
-          rejectUnauthorized: false,
-        },
-      },
-    }),
+  type: 'mysql', // Cambiado de 'postgres' a 'mysql'
+  host: process.env.DB_HOST,
+  port: parseInt(process.env.DB_PORT || '11979', 10),
+  username: process.env.DB_USERNAME,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
+  autoLoadEntities: true,
+  synchronize: true, 
+  // Configuración obligatoria para el SSL de Aiven
+  ssl: {
+    rejectUnauthorized: false,
+  },
+}),
     ProductsModule, 
     CategoriesModule, 
     OrdersModule, 
